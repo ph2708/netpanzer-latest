@@ -32,9 +32,9 @@ def get_latest_version_from_json(json_url):
         print(f"Error in obtaining the latest version: {e}")
         return None
 
-def create_desktop_shortcut(install_dir, target_path):
+def create_desktop_shortcut(install_dir, target_path, shortcut_name):
     desktop = os.path.join(os.path.expanduser('~'), 'Desktop')
-    shortcut_path = os.path.join(desktop, "Netpanzer.lnk")
+    shortcut_path = os.path.join(desktop, f"{shortcut_name}.lnk")
 
     shell = win32com.client.Dispatch("WScript.Shell")
     shortcut = shell.CreateShortCut(shortcut_path)
@@ -80,13 +80,15 @@ def install_game(install_dir, progress_label, json_url):
 
         launch_game(install_dir)
 
+        # Crie atalhos para netpanzer.exe e updateNP.exe após o lançamento do jogo
+        create_desktop_shortcut(install_dir, os.path.join(install_dir, "netpanzer.exe"), "Netpanzer")
+        create_desktop_shortcut(install_dir, os.path.join(install_dir, "updateNP.exe"), "UpdateNP")
+
     except Exception as e:
         progress_label.config(text=f"An error occurred during installation: {str(e)}")
         progress_label.update()
     finally:
         close_window()
-
-
 
 def check_version(install_dir, progress_label, json_url):
     try:
@@ -105,6 +107,7 @@ def check_version(install_dir, progress_label, json_url):
         else:
             progress_label.config(text="Your game is installed and up to date.")
             progress_label.update()
+
             launch_game(install_dir)
 
     except Exception as e:
