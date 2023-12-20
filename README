@@ -24,6 +24,9 @@ pip install requests pywin32
 Run the Script:
 Download the script and execute it on your Windows machine. The script will automatically:
 
+
+pyinstaller --onefile --noconsole --icon=icone.ico .\netpanzer.py
+
 Check the current installed version of Netpanzer
 Download and install the latest version if needed
 Create a desktop shortcut for the game
