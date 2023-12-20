@@ -80,9 +80,6 @@ def install_game(install_dir, progress_label, json_url):
 
         launch_game(install_dir)
 
-        # Crie atalhos para netpanzer.exe e updateNP.exe após o lançamento do jogo
-        create_desktop_shortcut(install_dir, os.path.join(install_dir, "netpanzer.exe"), "Netpanzer")
-        create_desktop_shortcut(install_dir, os.path.join(install_dir, "updateNP.exe"), "UpdateNP")
 
     except Exception as e:
         progress_label.config(text=f"An error occurred during installation: {str(e)}")
